@@ -1,0 +1,42 @@
+{
+  "isoImages": [
+    {
+        "id": "0",
+        "label": "Selecione uma Iso para o SO",
+        "size": "",
+        "minUsbSize": 0
+    },
+    {
+      "id": "win11_23h2",
+      "label": "Win11_23H2_Portuguese_x64.iso",
+      "size": "5.4 GB",
+      "minUsbSize": 8
+    },
+    {
+      "id": "win10_22h2",
+      "label": "Win10_22H2_Portuguese_x64.iso",
+      "size": "4.5 GB",
+      "minUsbSize": 8
+    }
+  ],
+  "drives": [
+    {
+        "id": "0",
+        "label": "Selecione uma unidade USB",
+        "capacity": ""
+    },
+    {
+      "id": "usb_1",
+      "label": "KINGSTON (F:) [16 GB]",
+      "capacity": "16 GB"
+    },
+    {
+      "id": "usb_2",
+      "label": "SANDisk Ultra (G:) [32 GB]",
+      "capacity": "32 GB"
+    }
+  ],
+  "partitionSchemes": ["GPT", "MBR"],
+  "targetSystems": ["UEFI (não CSM)", "BIOS ou UEFI"],
+  "fileSystems": ["NTFS", "FAT32"]
+}

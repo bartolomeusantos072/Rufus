@@ -1,0 +1,475 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  user-select: none;
+}
+
+body {
+  background: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1920') no-repeat center center fixed;
+  background-size: cover;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.desktop {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+
+/* Oculta elementos que iniciam fechados (Janela, Menu Iniciar, ícones ativos) */
+.hidden {
+  display: none !important;
+}
+
+/* Ícone da Área de Trabalho */
+.desktop-shortcut {
+  width: 80px;
+  padding: 8px 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  border-radius: 4px;
+  margin: 10px;
+  color: white;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+  font-size: 12px;
+  text-align: center;
+}
+
+.desktop-shortcut:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.desktop-shortcut img {
+  width: 40px;
+  height: 40px;
+}
+
+/* Janela do Rufus */
+.window-rufus {
+  position: absolute;
+  top: 100px;
+  left: calc(50vw - 190px);
+  width: 380px;
+  background-color: #f3f3f3;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  border: 1px solid rgba(0,0,0,0.15);
+  font-size: 12px;
+  overflow: hidden;
+  z-index: 10;
+}
+
+/* Cabeçalho com cursor de movimento para indicar que é arrastável */
+.window-header {
+  background-color: #e8e8e8;
+  padding: 8px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  cursor: move;
+}
+
+.window-header .title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: #333;
+}
+
+.win-btn {
+  background: transparent;
+  border: none;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+
+.win-btn.close:hover {
+  background-color: #e81123;
+  color: white;
+}
+
+.window-body {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+fieldset.section {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+legend {
+  padding: 0 4px;
+  color: #0066cc;
+  font-weight: 600;
+}
+
+label {
+  color: #444;
+  margin-top: 4px;
+}
+
+select, input[type="text"] {
+  width: 100%;
+  padding: 4px 6px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  background: #fff;
+  font-size: 12px;
+}
+
+.row {
+  display: flex;
+  gap: 6px;
+}
+
+.row select {
+  flex: 1;
+}
+
+button {
+  padding: 4px 10px;
+  border: 1px solid #bbb;
+  border-radius: 3px;
+  background: #e1e1e1;
+  cursor: pointer;
+  font-size: 11px;
+}
+
+button:hover {
+  background: #d5d5d5;
+}
+
+.btn-primary {
+  background: #0067c0;
+  color: white;
+  border: none;
+  font-weight: bold;
+}
+
+.btn-primary:hover {
+  background: #005da6;
+}
+
+/* Barra de Progresso */
+.progress-container {
+  position: relative;
+  height: 22px;
+  background: #e0e0e0;
+  border-radius: 3px;
+  overflow: hidden;
+  border: 1px solid #bbb;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background-color: #107c41;
+  transition: width 0.2s ease;
+}
+
+.progress-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: bold;
+  font-size: 11px;
+  color: #222;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+/* Menu Iniciar */
+.start-menu {
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 480px;
+  height: 400px;
+  background: rgba(243, 243, 243, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 8px;
+  border: 1px solid rgba(0,0,0,0.15);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  z-index: 20;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  outline: none;
+  font-size: 13px;
+  background: #fff;
+}
+
+.start-section-title {
+  font-size: 12px;
+  font-weight: bold;
+  color: #555;
+  margin-top: 5px;
+}
+
+.apps-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+}
+
+.app-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.app-item:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.app-item img {
+  width: 32px;
+  height: 32px;
+}
+
+.app-item span {
+  font-size: 11px;
+  color: #333;
+}
+
+/* Barra de Tarefas */
+.taskbar {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 48px;
+  background: rgba(243, 243, 243, 0.85);
+  backdrop-filter: blur(20px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 1px solid rgba(0,0,0,0.1);
+  z-index: 30;
+}
+
+.taskbar-icons {
+  display: flex;
+  gap: 8px;
+}
+
+.taskbar-icons button {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: transparent;
+  font-size: 18px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.taskbar-icons button:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.clock {
+  position: absolute;
+  right: 16px;
+  font-size: 12px;
+  color: #333;
+}
+
+/* Overlay e Janela do Modal */
+.modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.modal-window {
+  width: 360px;
+  background: #f3f3f3;
+  border-radius: 8px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  animation: popIn 0.15s ease-out;
+}
+
+@keyframes popIn {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.modal-header {
+  background: #e8e8e8;
+  padding: 6px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 600;
+  border-bottom: 1px solid #ddd;
+}
+
+.modal-body {
+  padding: 16px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  font-size: 12px;
+  color: #222;
+}
+
+.modal-icon {
+  font-size: 24px;
+}
+
+.modal-message p {
+  margin-top: 6px;
+  color: #555;
+  font-size: 11px;
+}
+
+.modal-actions {
+  background: #eef2f5;
+  padding: 10px 12px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.modal-actions button {
+  min-width: 75px;
+  padding: 5px 12px;
+}
+
+/* Janela do File Explorer */
+.explorer-window {
+  width: 520px;
+  height: 340px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.explorer-header {
+  background: #e8e8e8;
+  padding: 6px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 600;
+  border-bottom: 1px solid #ddd;
+}
+
+.explorer-header .title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.explorer-toolbar {
+  padding: 6px 12px;
+  background: #fff;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 11px;
+  color: #555;
+}
+
+.path-bar {
+  background: #f0f0f0;
+  padding: 3px 8px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.explorer-body {
+  flex: 1;
+  background: #fff;
+  padding: 8px;
+  overflow-y: auto;
+}
+
+.file-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.file-item:hover {
+  background: #e5f3ff;
+}
+
+.file-item.selected {
+  background: #cce8ff;
+  border: 1px solid #99d1ff;
+}
+
+.file-item img {
+  width: 18px;
+  height: 18px;
+}
+
+.explorer-footer {
+  padding: 8px 12px;
+  background: #f3f3f3;
+  border-top: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+}
+
+.explorer-actions {
+  display: flex;
+  gap: 8px;
+}

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulador Windows 11 & Rufus</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="desktop">
+
+    <!-- Ícone na Área de Trabalho -->
+    <div class="desktop-shortcut" id="desktop-rufus-icon">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/d/de/Rufus-logo.png" alt="Rufus Icon">
+      <span>Rufus 4.4</span>
+    </div>
+
+    <!-- Janela do Rufus (Inicia oculta com a classe .hidden) -->
+    <div class="window-rufus hidden">
+      <div class="window-header">
+        <div class="title">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/d/de/Rufus-logo.png" alt="Rufus Icon" width="16">
+          Rufus 4.4.2108 (Simulador)
+        </div>
+        <div class="controls">
+          <button class="win-btn minimize">—</button>
+          <button class="win-btn close" id="btn-close-window">✕</button>
+        </div>
+      </div>
+
+      <div class="window-body">
+        <fieldset class="section">
+          <legend>Propriedades da unidade</legend>
+
+          <label for="device-select">Dispositivo</label>
+          <select id="device-select"></select>
+
+          <label for="boot-select">Eleição do tipo de inicialização</label>
+          <div class="row">
+            <select id="boot-select"></select>
+            <button id="btn-select-iso">SELECIONAR</button>
+          </div>
+
+          <label for="partition-select">Esquema de partição</label>
+          <select id="partition-select"></select>
+
+          <label for="target-select">Sistema de destino</label>
+          <select id="target-select"></select>
+        </fieldset>
+
+        <fieldset class="section">
+          <legend>Opções de formatação</legend>
+
+          <label for="volume-label">Nome do volume</label>
+          <input type="text" id="volume-label" value="CCCOMA_X64">
+
+          <label for="filesystem-select">Sistema de arquivos</label>
+          <select id="filesystem-select"></select>
+        </fieldset>
+
+        <!-- Barra de Progresso -->
+        <div class="progress-container">
+          <div class="progress-bar" id="progress-bar"></div>
+          <span class="progress-text" id="progress-text">PRONTO</span>
+        </div>
+
+        <div class="actions">
+          <button id="btn-start" class="btn-primary">INICIAR</button>
+          <button id="btn-close-app">FECHAR</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Menu Iniciar do Windows 11 (Opcional, mas suportado pelo JS) -->
+    <div class="start-menu hidden" id="start-menu">
+      <div class="search-box">
+        <input type="text" id="search-input" placeholder="Digite aqui para pesquisar...">
+      </div>
+
+      <div class="start-section-title">Fixados / Programas</div>
+      <div class="apps-grid" id="apps-grid">
+        <div class="app-item" id="start-rufus-icon">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/d/de/Rufus-logo.png" alt="Rufus Icon">
+          <span>Rufus</span>
+        </div>
+        <div class="app-item">
+          <img src="https://cdn-icons-png.flaticon.com/512/3767/3767084.png" alt="Edge">
+          <span>Edge</span>
+        </div>
+        <div class="app-item">
+          <img src="https://cdn-icons-png.flaticon.com/512/716/716784.png" alt="Bloco de Notas">
+          <span>Bloco de Notas</span>
+        </div>
+        <div class="app-item">
+          <img src="https://cdn-icons-png.flaticon.com/512/2983/2983780.png" alt="Configurações">
+          <span>Configurações</span>
+        </div>
+      </div>
+    </div>
+    <!-- Modal de Seleção de Arquivo (File Explorer) -->
+<div class="modal-overlay hidden" id="file-explorer-modal">
+  <div class="explorer-window">
+    <div class="explorer-header">
+      <div class="title">
+        <img src="https://cdn-icons-png.flaticon.com/512/3767/3767084.png" width="16" alt="Explorer">
+        Abrir - Selecionar imagem ISO
+      </div>
+      <button class="win-btn close" id="explorer-btn-x">✕</button>
+    </div>
+
+    <div class="explorer-toolbar">
+      <span class="path-bar">📁 Este Computador > Downloads</span>
+    </div>
+
+    <div class="explorer-body">
+      <div class="file-list" id="iso-file-list">
+        <!-- As ISOs do data.json serão inseridas aqui dinamicamente -->
+      </div>
+    </div>
+
+    <div class="explorer-footer">
+      <span id="selected-file-name">Nenhum arquivo selecionado</span>
+      <div class="explorer-actions">
+        <button id="explorer-btn-open" class="btn-primary" disabled>Abrir</button>
+        <button id="explorer-btn-cancel">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+    <!-- Barra de Tarefas -->
+    <div class="taskbar">
+      <div class="taskbar-icons">
+        <button class="start-btn" id="start-button">🪟</button>
+        <button class="task-icon active hidden" id="taskbar-rufus-icon">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/d/de/Rufus-logo.png" alt="Rufus Icon" width="18">
+        </button>
+      </div>
+      <div class="clock" id="clock">12:00</div>
+    </div>
+    <!-- Modal Dinâmico (Confirmação e Mensagem de Sucesso) -->
+<div class="modal-overlay hidden" id="custom-modal">
+  <div class="modal-window">
+    <div class="modal-header">
+      <span id="modal-title"> Rufus - Aviso</span>
+      <button class="win-btn close" id="modal-btn-x">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-icon" id="modal-icon">⚠️</div>
+      <div class="modal-message" id="modal-message">
+        <!-- Conteúdo injetado via JS -->
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button id="modal-btn-ok" class="btn-primary">OK</button>
+      <button id="modal-btn-cancel">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+  </div> <!-- Fim do .desktop -->
+  </div>
+  <script type="module" src="script.js"></script>
+</body>
+</html>
