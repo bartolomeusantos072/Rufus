@@ -1,29 +1,58 @@
 {
   "isoImages": [
     {
-        "id": "0",
-        "label": "Selecione uma Iso para o SO",
-        "size": "",
-        "minUsbSize": 0
+      "id": "0",
+      "label": "Selecione uma imagem ou utilitário",
+      "type": "none",
+      "size": "",
+      "minUsbSize": 0
     },
     {
       "id": "win11_23h2",
       "label": "Win11_23H2_Portuguese_x64.iso",
+      "type": "os",
       "size": "5.4 GB",
-      "minUsbSize": 8
+      "minUsbSize": 8,
+      "allowedSchemes": ["GPT"],
+      "allowedTargets": ["UEFI (não CSM)"],
+      "defaultFileSystem": "NTFS"
     },
     {
       "id": "win10_22h2",
       "label": "Win10_22H2_Portuguese_x64.iso",
+      "type": "os",
       "size": "4.5 GB",
-      "minUsbSize": 8
+      "minUsbSize": 8,
+      "allowedSchemes": ["GPT", "MBR"],
+      "allowedTargets": ["UEFI (não CSM)", "BIOS ou UEFI"],
+      "defaultFileSystem": "NTFS"
+    },
+    {
+      "id": "linux_mint_21",
+      "label": "linuxmint-21.3-cinnamon-64bit.iso",
+      "type": "os",
+      "size": "2.9 GB",
+      "minUsbSize": 4,
+      "allowedSchemes": ["GPT", "MBR"],
+      "allowedTargets": ["UEFI (não CSM)", "BIOS ou UEFI"],
+      "defaultFileSystem": "FAT32"
+    },
+    {
+      "id": "freedos_bios_update",
+      "label": "FreeDOS (Para atualizar BIOS Legacy/UEFI via FLASHEPI)",
+      "type": "dos_utility",
+      "size": "50 MB",
+      "minUsbSize": 1,
+      "allowedSchemes": ["MBR"],
+      "allowedTargets": ["BIOS ou UEFI"],
+      "defaultFileSystem": "FAT32"
     }
   ],
   "drives": [
     {
-        "id": "0",
-        "label": "Selecione uma unidade USB",
-        "capacity": ""
+      "id": "0",
+      "label": "Selecione uma unidade USB",
+      "capacity": ""
     },
     {
       "id": "usb_1",

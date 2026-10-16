@@ -9,17 +9,21 @@ export function simulateWriting(progressBar, progressText) {
   ];
 
   let intervalId = null;
+  let rejectPromise = null;
 
   const promise = new Promise((resolve, reject) => {
+    rejectPromise = reject;
     let progress = 0;
 
     intervalId = setInterval(() => {
       try {
         progress += 2;
-        progressBar.style.width = `${progress}%`;
+        if (progressBar) progressBar.style.width = `${Math.min(progress, 100)}%`;
 
-        const currentStep = steps.find(step => progress >= step.start && progress < step.end);
-        if (currentStep) {
+        // Busca o passo correspondente (<= garante a leitura do último passo no 100%)
+        const currentStep = steps.find(step => progress >= step.start && progress <= step.end);
+        
+        if (currentStep && progressText) {
           progressText.textContent = currentStep.message === "Copiando arquivos da ISO..."
             ? `${currentStep.message} (${progress}%)`
             : currentStep.message;
@@ -36,10 +40,16 @@ export function simulateWriting(progressBar, progressText) {
     }, 150);
   });
 
-  return { promise, stop: () => clearInterval(intervalId) };
+  return {
+    promise,
+    stop: () => {
+      if (intervalId) clearInterval(intervalId);
+      if (rejectPromise) rejectPromise(new Error("Gravação cancelada pelo usuário."));
+    }
+  };
 }
 
 export function resetProgress(progressBar, progressText) {
-  progressBar.style.width = "0%";
-  progressText.textContent = "Preparando...";
+  if (progressBar) progressBar.style.width = "0%";
+  if (progressText) progressText.textContent = "PRONTO";
 }
